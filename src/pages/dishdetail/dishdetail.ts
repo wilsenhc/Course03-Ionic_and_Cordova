@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, ToastController, ModalController, ViewController } from 'ionic-angular';
 import { Dish } from '../../shared/dish';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
+import { CommentPage } from '../comment/comment';
 
 /**
  * Generated class for the DishdetailPage page.
@@ -26,6 +27,8 @@ export class DishdetailPage {
     @Inject('BaseURL') private BaseURL,
     private favoriteservice: FavoriteProvider,
     private toastCtrl: ToastController,
+    public modalCtrl: ModalController,
+    public viewCtrl: NavController,
     private actionSheetCtrl: ActionSheetController) {
     this.dish = navParams.get('dish');
     this.favorite = favoriteservice.isFavorite(this.dish.id);
@@ -33,6 +36,7 @@ export class DishdetailPage {
     let total = 0;
     this.dish.comments.forEach(comment => total += comment.rating );
     this.avgstars = (total/this.numcomments).toFixed(2);
+
   }
 
   ionViewDidLoad() {
@@ -59,6 +63,7 @@ export class DishdetailPage {
         },
         {
           text: 'Add Comment',
+          handler: () => this.addComment(),
         },
         {
           text: 'Cancel',
@@ -67,6 +72,17 @@ export class DishdetailPage {
       ],
     });
     actionSheet.present();
+  }
+
+  addComment() {
+    const modal = this.modalCtrl.create(CommentPage);
+    modal.present();
+
+    modal.onDidDismiss((data, role) => {
+      if (role == 'add-comment') {
+        this.dish.comments.push(data);
+      }
+    });
   }
 
 }
