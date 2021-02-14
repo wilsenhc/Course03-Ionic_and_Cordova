@@ -81,6 +81,11 @@ export class DishdetailPage {
     modal.onDidDismiss((data, role) => {
       if (role == 'add-comment') {
         this.dish.comments.push(data);
+        this.numcomments = this.dish.comments.length;
+        let total = 0;
+        this.dish.comments.forEach(comment => total += comment.rating );
+        this.avgstars = (total/this.numcomments).toFixed(2);
+
       }
     });
   }
