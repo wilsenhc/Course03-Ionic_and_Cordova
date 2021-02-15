@@ -33,7 +33,7 @@ export class CommentPage {
   }
 
   dismiss(data = null, role = 'cancel') {
-    const dismiss = this.viewCtrl.dismiss(data, role);
+    this.viewCtrl.dismiss(data, role);
   }
 
   onSubmit() {
