@@ -57,13 +57,6 @@ export class FavoriteProvider {
   }
 
   getFavorites(): Observable<Dish[]> {
-
-    // Schedule a single notification
-    this.localNotifications.schedule({
-      id: Math.random(),
-      text: 'Dish added as a favorite successfully'
-    });
-
     return this.dishservice.getDishes()
       .map(dishes => dishes.filter(dish => this.favorites.some(el => el === dish.id)));
   }

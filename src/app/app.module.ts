@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { LocalNotifications } from '@ionic-native/local-notifications';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -64,6 +65,7 @@ import { baseURL } from '../shared/baseurl';
     StatusBar,
     SplashScreen,
     LocalNotifications,
+    EmailComposer,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     DishProvider,
     LeaderProvider,
